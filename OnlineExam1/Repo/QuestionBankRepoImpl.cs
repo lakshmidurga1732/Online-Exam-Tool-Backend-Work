@@ -36,10 +36,12 @@ namespace OnlineExam1.Repo
         public List<QuestionBankDTO> GetAll()
         {
             var result = context.QuestionBanks
+                .Include(q => q.Subject) // Include related Subject data
                 .Select(q => new QuestionBankDTO
                 {
                     QuestionID = q.QuestionID,
                     SubjectID = q.SubjectID,
+                    SubjectName = q.Subject.SubjectName, // Retrieve SubjectName from related Subject
                     QuestionText = q.QuestionText,
                     Answer = q.Answer,
                     option1 = q.Option1,
@@ -114,11 +116,13 @@ namespace OnlineExam1.Repo
         public List<QuestionBankDTO> GetBySubjectID(int subjectId)
         {
             var result = context.QuestionBanks
+                .Include(q => q.Subject) // Include related Subject data
                 .Where(q => q.SubjectID == subjectId)
                 .Select(q => new QuestionBankDTO
                 {
                     QuestionID = q.QuestionID,
                     SubjectID = q.SubjectID,
+                    SubjectName = q.Subject.SubjectName, // Retrieve SubjectName from related Subject
                     QuestionText = q.QuestionText,
                     Answer = q.Answer,
                     option1 = q.Option1,

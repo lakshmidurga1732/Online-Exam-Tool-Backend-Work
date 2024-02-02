@@ -4,6 +4,7 @@
     {
         public int QuestionID { get; set; }
         public int SubjectID { get; set; }
+        public string SubjectName { get; set; }
         public string QuestionText { get; set; }
         public string option1 { get; set; }
         public string option2 { get; set; }
