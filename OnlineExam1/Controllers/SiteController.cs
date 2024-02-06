@@ -21,7 +21,7 @@ namespace OnlineExam1.Controllers
         }
         // GET: api/Site
         [HttpGet, Route("GetAll")]
-       //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<IEnumerable<SiteDTO>> GetSites()
         {
             try
@@ -61,7 +61,7 @@ namespace OnlineExam1.Controllers
             }
         }
         [HttpGet, Route("GetByName/{name}")]
-       // [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public ActionResult<SiteDTO> GetSiteByName(string name)
         {
             try
