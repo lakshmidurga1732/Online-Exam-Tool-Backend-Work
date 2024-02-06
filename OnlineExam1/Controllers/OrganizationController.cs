@@ -21,7 +21,7 @@ namespace OnlineExam1.Controllers
 
         
         [HttpGet, Route("GetAll")]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public ActionResult<IEnumerable<OrganizationDTO>> GetOrganizations()
         {
             try
