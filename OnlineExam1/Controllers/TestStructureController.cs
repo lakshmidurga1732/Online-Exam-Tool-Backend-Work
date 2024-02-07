@@ -4,7 +4,7 @@ using OnlineExam1.DTO;
 using OnlineExam1.Entity;
 using OnlineExam1.Repo;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging; // Add this for ILogger
+using Microsoft.Extensions.Logging;
 
 namespace OnlineExam1.Controllers
 {
@@ -21,7 +21,7 @@ namespace OnlineExam1.Controllers
             _logger = logger;
         }
 
-        // GET: api/TestStructure
+        // GET: api/TestStructure/GetAll
         [HttpGet, Route("GetAll")]
         [AllowAnonymous]
         public ActionResult<IEnumerable<TestStructureDTO>> GetTestStructures()
@@ -38,7 +38,7 @@ namespace OnlineExam1.Controllers
             }
         }
 
-        // GET: api/TestStructure/5
+        // GET: api/TestStructure/GetById/5
         [HttpGet, Route("GetById/{id}")]
         [AllowAnonymous]
         public ActionResult<TestStructureDTO> GetTestStructure(int id)
@@ -61,13 +61,18 @@ namespace OnlineExam1.Controllers
             }
         }
 
-        // POST: api/TestStructure
+        // POST: api/TestStructure/Add
         [HttpPost, Route("Add")]
         [Authorize(Roles = "Admin")]
         public ActionResult<TestStructureDTO> PostTestStructure(TestStructureDTO testStructureDTO)
         {
             try
             {
+                if (testStructureDTO == null)
+                {
+                    return BadRequest("TestStructureDTO is null");
+                }
+
                 unitOfWork.TestStructureRepoImplObject.Add(testStructureDTO);
                 unitOfWork.SaveAll();
 
@@ -75,12 +80,12 @@ namespace OnlineExam1.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex, "An error occurred while adding a test structure");
+                return StatusCode(500, "An error occurred while adding a test structure");
             }
         }
 
-        // PUT: api/TestStructure/5
+        // PUT: api/TestStructure/Update/5
         [HttpPut, Route("Update/{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult PutTestStructure(int id, TestStructureDTO testStructureDTO)
@@ -110,7 +115,7 @@ namespace OnlineExam1.Controllers
             }
         }
 
-        // DELETE: api/TestStructure/5
+        // DELETE: api/TestStructure/Delete/5
         [HttpDelete, Route("Delete/{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteTestStructure(int id)

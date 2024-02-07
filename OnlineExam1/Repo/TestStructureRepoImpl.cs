@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Logging; // Add this for ILogger
+using Microsoft.EntityFrameworkCore;
 using OnlineExam1.DTO;
 using OnlineExam1.Entity;
 
@@ -21,7 +20,7 @@ namespace OnlineExam1.Repo
             TestStructure testStructure = new TestStructure
             {
                 SiteID = item.SiteID,
-                SubjectID = item.SubjectID, // Added SubjectID
+                SubjectID = item.SubjectID,
                 TestName = item.TestName,
                 NoOfQuestions = item.NoOfQuestions,
                 TotalMarks = item.TotalMarks,
@@ -36,11 +35,13 @@ namespace OnlineExam1.Repo
         public List<TestStructureDTO> GetAll()
         {
             var result = context.TestStructures
+                .Include(t => t.Subject) // Include related Subject data
                 .Select(t => new TestStructureDTO
                 {
                     TestID = t.TestID,
                     SiteID = t.SiteID,
-                    SubjectID = t.SubjectID, // Added SubjectID
+                    SubjectID = t.SubjectID,
+                    SubjectName = t.Subject.SubjectName, // Include SubjectName
                     TestName = t.TestName,
                     NoOfQuestions = t.NoOfQuestions,
                     TotalMarks = t.TotalMarks,
@@ -54,6 +55,7 @@ namespace OnlineExam1.Repo
         public TestStructureDTO GetById(int testId)
         {
             var testStructure = context.TestStructures
+                .Include(t => t.Subject) // Include related Subject data
                 .FirstOrDefault(t => t.TestID == testId);
 
             if (testStructure == null)
@@ -65,7 +67,8 @@ namespace OnlineExam1.Repo
             {
                 TestID = testStructure.TestID,
                 SiteID = testStructure.SiteID,
-                SubjectID = testStructure.SubjectID, // Added SubjectID
+                SubjectID = testStructure.SubjectID,
+                SubjectName = testStructure.Subject.SubjectName, // Include SubjectName
                 TestName = testStructure.TestName,
                 NoOfQuestions = testStructure.NoOfQuestions,
                 TotalMarks = testStructure.TotalMarks,
@@ -83,7 +86,7 @@ namespace OnlineExam1.Repo
             }
 
             testStructure.SiteID = updatedItem.SiteID;
-            testStructure.SubjectID = updatedItem.SubjectID; // Added SubjectID
+            testStructure.SubjectID = updatedItem.SubjectID;
             testStructure.TestName = updatedItem.TestName;
             testStructure.NoOfQuestions = updatedItem.NoOfQuestions;
             testStructure.TotalMarks = updatedItem.TotalMarks;
@@ -108,4 +111,3 @@ namespace OnlineExam1.Repo
         }
     }
 }
-
