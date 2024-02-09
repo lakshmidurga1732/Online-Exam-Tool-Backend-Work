@@ -38,7 +38,9 @@ namespace OnlineExam1.Repo
                 {
                     AssignmentID = at.AssignmentID,
                     TestID = at.TestID,
+                    TestName = at.Test.TestName,
                     UserId = at.UserId,
+                  // Name = at.User.Name,
                     ScheduledDateTime = at.ScheduledDateTime,
                 })
                 .ToList();
@@ -76,7 +78,9 @@ namespace OnlineExam1.Repo
                 {
                     AssignmentID = at.AssignmentID,
                     TestID = at.TestID,
+                    TestName = at.Test.TestName,
                     UserId = at.UserId,
+                   // Name = at.User.Name,
                     ScheduledDateTime = at.ScheduledDateTime,
                 })
                 .ToList();

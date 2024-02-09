@@ -23,7 +23,7 @@ namespace OnlineExam1.Controllers
 
         // GET: api/TestStructure/GetAll
         [HttpGet, Route("GetAll")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult<IEnumerable<TestStructureDTO>> GetTestStructures()
         {
             try
@@ -40,7 +40,7 @@ namespace OnlineExam1.Controllers
 
         // GET: api/TestStructure/GetById/5
         [HttpGet, Route("GetById/{id}")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult<TestStructureDTO> GetTestStructure(int id)
         {
             try
@@ -63,7 +63,7 @@ namespace OnlineExam1.Controllers
 
         // POST: api/TestStructure/Add
         [HttpPost, Route("Add")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")] // Reinstated authorization attribute
         public ActionResult<TestStructureDTO> PostTestStructure(TestStructureDTO testStructureDTO)
         {
             try
@@ -87,7 +87,7 @@ namespace OnlineExam1.Controllers
 
         // PUT: api/TestStructure/Update/5
         [HttpPut, Route("Update/{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult PutTestStructure(int id, TestStructureDTO testStructureDTO)
         {
             try
@@ -117,7 +117,7 @@ namespace OnlineExam1.Controllers
 
         // DELETE: api/TestStructure/Delete/5
         [HttpDelete, Route("Delete/{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult DeleteTestStructure(int id)
         {
             try
