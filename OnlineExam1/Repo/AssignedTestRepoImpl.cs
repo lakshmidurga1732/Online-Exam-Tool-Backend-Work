@@ -23,7 +23,8 @@ namespace OnlineExam1.Repo
                 UserId = item.UserId,
                 ScheduledDateTime = item.ScheduledDateTime
             };
-
+            assignedTest.Test = context.TestStructures.Find(assignedTest.TestID);
+            assignedTest.User = context.Users.Find(assignedTest.UserId);
             context.AssignedTests.Add(assignedTest);
             context.SaveChanges();
             return true;
@@ -40,7 +41,7 @@ namespace OnlineExam1.Repo
                     TestID = at.TestID,
                     TestName = at.Test.TestName,
                     UserId = at.UserId,
-                  // Name = at.User.Name,
+                   Name = at.User.Name,
                     ScheduledDateTime = at.ScheduledDateTime,
                 })
                 .ToList();
@@ -80,7 +81,7 @@ namespace OnlineExam1.Repo
                     TestID = at.TestID,
                     TestName = at.Test.TestName,
                     UserId = at.UserId,
-                   // Name = at.User.Name,
+                    Name = at.User.Name,
                     ScheduledDateTime = at.ScheduledDateTime,
                 })
                 .ToList();
